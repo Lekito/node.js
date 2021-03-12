@@ -38,6 +38,15 @@ app.put("/contatos/:id", (require, response) => {
     contatos[id] = nome;
 
     return response.json(contatos);
+});
+
+app.delete("/contatos/:id", (require, response) => {
+    const { id } = require.params;
+
+    contatos.splice(id, 1); // para excluir somete uma posição do array usando o splice()
+
+    return response.json(contatos);
+
 })
 
 app.listen(8080, () => {
