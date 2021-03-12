@@ -6,8 +6,9 @@ app.get("/", (require, response) => {
     response.send("Olá Mundo!");
 });
 
-app.get("/contato", (require, response) => {
-    response.send("Página de contatos.");
+app.get("/contato/:id", (require, response) => {
+    const id = require.params.id;
+    return response.json({id: id, nome: "Alex"});
 });
 
 app.listen(8080, () => {
