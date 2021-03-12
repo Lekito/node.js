@@ -2,8 +2,10 @@ const express = require("express");
 
 const app = express();
 
+const contatos = ['Alex', 'Kelly', 'Jessica', 'Marcos',  ];
+
 app.get("/", (require, response) => {
-    response.send("Olá Mundo!");
+    return response.json(contatos);
 });
 
 app.get("/contato/:id", (require, response) => {
