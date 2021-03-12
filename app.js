@@ -1,3 +1,4 @@
+const { request } = require("express");
 const express = require("express");
 
 const app = express();
@@ -28,6 +29,15 @@ app.post("/contatos", (require, response) => {
     contatos.push(nome);
 
     return response.json(contatos)
+});
+
+app.put("/contatos/:id", (require, response) => {
+    const { id } = require.params;
+    const { nome } = require.body;
+
+    contatos[id] = nome;
+
+    return response.json(contatos);
 })
 
 app.listen(8080, () => {
