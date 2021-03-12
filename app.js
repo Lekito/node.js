@@ -7,8 +7,8 @@ app.get("/", (require, response) => {
 });
 
 app.get("/contato/:id", (require, response) => {
-    const id = require.params.id;
-    const sit = require.query.sit;
+    const {id} = require.params;
+    const {sit} = require.query;
     return response.json({
         id: id,
         nome: "Alex",
