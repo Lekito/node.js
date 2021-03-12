@@ -8,7 +8,12 @@ app.get("/", (require, response) => {
 
 app.get("/contato/:id", (require, response) => {
     const id = require.params.id;
-    return response.json({id: id, nome: "Alex"});
+    const sit = require.query.sit;
+    return response.json({
+        id: id,
+        nome: "Alex",
+        sit: sit
+    });
 });
 
 app.listen(8080, () => {
