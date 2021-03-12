@@ -8,7 +8,11 @@ app.get("/", (require, response) => {
     return response.json(contatos);
 });
 
-app.get("/contato/:id", (require, response) => {
+app.get("/contatos", (require, response) => {
+    return response.json(contatos);
+});
+
+app.get("/contatos/:id", (require, response) => {
     const {id} = require.params;
     return response.json({
         id: id,
@@ -17,5 +21,5 @@ app.get("/contato/:id", (require, response) => {
 });
 
 app.listen(8080, () => {
-    console.log("Servidor iniciado na porta 8080!")
+    console.log("Servidor iniciado na porta 8080! http://localhost:8080/contatos/")
 })
