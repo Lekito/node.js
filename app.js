@@ -2,6 +2,8 @@ const express = require("express");
 
 const app = express();
 
+app.use(express.json());
+
 const contatos = ['Alex', 'Kelly', 'Jessica', 'Marcos',  ];
 
 app.get("/", (require, response) => {
@@ -19,6 +21,14 @@ app.get("/contatos/:id", (require, response) => {
         nome: contatos[id]
     });
 });
+
+app.post("/contatos", (require, response) => {
+    const {nome} = require.body;
+
+    contatos.push(nome);
+
+    return response.json(contatos)
+})
 
 app.listen(8080, () => {
     console.log("Servidor iniciado na porta 8080! http://localhost:8080/contatos/")
