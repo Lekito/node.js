@@ -10,11 +10,9 @@ app.get("/", (require, response) => {
 
 app.get("/contato/:id", (require, response) => {
     const {id} = require.params;
-    const {sit} = require.query;
     return response.json({
         id: id,
-        nome: "Alex",
-        sit: sit
+        nome: contatos[id]
     });
 });
 
