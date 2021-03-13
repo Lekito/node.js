@@ -7,10 +7,28 @@ app.use(express.json());
 
 const contatos = ['Alex', 'Kelly', 'Jessica', 'Marcos',  ];
 
-app.use((require, response, next) => {
+/*app.use((require, response, next) => {
     console.log("Acessou o Middlewares!");
     next()
-});
+});*/
+
+function valContato(require, response, next) {
+    if(!require.body.nome) {
+        return response.status(400).json({
+            error: "Necessário enviar um nome!"
+        })
+    }
+    return next();
+};
+
+function valPosContato(require, response, next) {
+    if(!contatos[require.params.id]) {
+        return response.status(400).json({
+            error: "Contato não encontrado!"
+        });
+    }
+    return next();
+}
 
 app.get("/", (require, response) => {
     return response.json(contatos);
@@ -20,7 +38,7 @@ app.get("/contatos", (require, response) => {
     return response.json(contatos);
 });
 
-app.get("/contatos/:id", (require, response) => {
+app.get("/contatos/:id", valPosContato, (require, response) => {
     const {id} = require.params;
     return response.json({
         id: id,
@@ -28,7 +46,7 @@ app.get("/contatos/:id", (require, response) => {
     });
 });
 
-app.post("/contatos", (require, response) => {
+app.post("/contatos", valContato, (require, response) => {
     const {nome} = require.body;
 
     contatos.push(nome);
@@ -36,7 +54,7 @@ app.post("/contatos", (require, response) => {
     return response.json(contatos)
 });
 
-app.put("/contatos/:id", (require, response) => {
+app.put("/contatos/:id", valPosContato, valContato, (require, response) => {
     const { id } = require.params;
     const { nome } = require.body;
 
@@ -45,7 +63,7 @@ app.put("/contatos/:id", (require, response) => {
     return response.json(contatos);
 });
 
-app.delete("/contatos/:id", (require, response) => {
+app.delete("/contatos/:id", valPosContato, (require, response) => {
     const { id } = require.params;
 
     contatos.splice(id, 1); // para excluir somete uma posição do array usando o splice()
