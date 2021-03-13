@@ -7,6 +7,11 @@ app.use(express.json());
 
 const contatos = ['Alex', 'Kelly', 'Jessica', 'Marcos',  ];
 
+app.use((require, response, next) => {
+    console.log("Acessou o Middlewares!");
+    next()
+});
+
 app.get("/", (require, response) => {
     return response.json(contatos);
 });
